@@ -5,7 +5,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			1<body>{children}</body>
+			<body>{children}</body>
 		</html>
 	);
 }
