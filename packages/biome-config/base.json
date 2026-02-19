@@ -95,7 +95,9 @@
 				"**/*.config.js",
 				"**/next.config.js",
 				"**/postcss.config.js",
-				"**/tailwind.config.js"
+				"**/tailwind.config.js",
+				"**/jest-preset.js",
+				"**/jest-presets/**"
 			],
 			"linter": { "rules": { "style": { "noCommonJs": "off" } } }
 		}

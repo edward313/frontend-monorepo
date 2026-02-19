@@ -11,6 +11,12 @@ export default function Web() {
 	const [error, setError] = useState<string | undefined>();
 
 	useEffect(() => {
+		if (name.trim().length === 0) {
+			setResponse(null);
+			setError(undefined);
+			return;
+		}
+
 		setResponse(null);
 		setError(undefined);
 	}, [name]);
