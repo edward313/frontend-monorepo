@@ -1,1 +1,2 @@
 pnpm -s ./node_modules/.bin/biome check .
+pnpm -s typecheck

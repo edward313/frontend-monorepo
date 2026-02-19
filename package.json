@@ -1,5 +1,5 @@
 {
-	"name": "with-docker",
+	"name": "frontend-monorepo",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
@@ -17,7 +17,6 @@
 		"@biomejs/biome": "2.3.8",
 		"@repo/biome-config": "workspace:*",
 		"husky": "^9.1.7",
-		"prettier": "^3.2.5",
 		"turbo": "^2.8.10"
 	},
 	"engines": {
