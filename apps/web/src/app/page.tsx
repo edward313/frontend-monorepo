@@ -37,10 +37,6 @@ export default function Web() {
 		}
 	};
 
-	const onReset = () => {
-		setName(123);
-	};
-
 	return (
 		<div>
 			<h1>Web</h1>
@@ -65,7 +61,6 @@ export default function Web() {
 				<div>
 					<h3>Greeting</h3>
 					<p>{response.message}</p>
-					<Button onClick={onReset}>Reset</Button>
 				</div>
 			)}
 		</div>
