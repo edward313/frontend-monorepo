@@ -37,7 +37,7 @@ export default function Web() {
 	};
 
 	const onReset = () => {
-		setName("");
+		setName(123);
 	};
 
 	return (
