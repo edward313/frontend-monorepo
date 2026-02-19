@@ -8,8 +8,8 @@ export default function Web() {
 	const [name, setName] = useState<string>("");
 	const [response, setResponse] = useState<{ message: string } | null>(null);
 	const [error, setError] = useState<string | undefined>();
-
-	useEffect(() => {
+	const 
+	useEffect(() => {	
 		if (name.trim().length === 0) {
 			setResponse(null);
 			setError(undefined);
