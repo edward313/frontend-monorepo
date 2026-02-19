@@ -9,7 +9,7 @@ export default function Web() {
 	const [response, setResponse] = useState<{ message: string } | null>(null);
 	const [error, setError] = useState<string | undefined>();
 	const 
-	useEffect(() => {	
+	useEffect(() => {
 		if (name.trim().length === 0) {
 			setResponse(null);
 			setError(undefined);
