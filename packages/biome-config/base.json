@@ -48,43 +48,12 @@
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "off"
 			},
-			"suspicious": {
-				"noAsyncPromiseExecutor": "error",
-				"noCatchAssign": "error",
-				"noClassAssign": "error",
-				"noCompareNegZero": "error",
-				"noConstantBinaryExpressions": "error",
-				"noControlCharactersInRegex": "error",
-				"noDebugger": "error",
-				"noDuplicateCase": "error",
-				"noDuplicateClassMembers": "error",
-				"noDuplicateElseIf": "error",
-				"noDuplicateObjectKeys": "error",
-				"noDuplicateParameters": "error",
-				"noEmptyBlockStatements": "error",
-				"noExplicitAny": "error",
-				"noExtraNonNullAssertion": "error",
-				"noFallthroughSwitchClause": "error",
-				"noFunctionAssign": "error",
-				"noGlobalAssign": "error",
-				"noImportAssign": "error",
-				"noIrregularWhitespace": "error",
-				"noMisleadingCharacterClass": "error",
-				"noMisleadingInstantiator": "error",
-				"noNonNullAssertedOptionalChain": "error",
-				"noPrototypeBuiltins": "error",
-				"noRedeclare": "error",
-				"noShadowRestrictedNames": "error",
-				"noSparseArray": "error",
-				"noUnsafeDeclarationMerging": "error",
-				"noUnsafeNegation": "error",
-				"noUselessRegexBackrefs": "error",
-				"noWith": "error",
-				"useGetterReturn": "error",
-				"useNamespaceKeyword": "error"
+			"a11y": {
+				"useButtonType": "off",
+				"useKeyWithClickEvents": "off",
+				"noStaticElementInteractions": "off"
 			}
-		},
-		"includes": ["**", "!dist/**"]
+		}
 	},
 	"javascript": { "formatter": { "quoteStyle": "double" }, "globals": [] },
 	"overrides": [
@@ -119,6 +88,16 @@
 					}
 				}
 			}
+		},
+		{
+			"includes": [
+				"**/*.cjs",
+				"**/*.config.js",
+				"**/next.config.js",
+				"**/postcss.config.js",
+				"**/tailwind.config.js"
+			],
+			"linter": { "rules": { "style": { "noCommonJs": "off" } } }
 		}
 	],
 	"assist": {

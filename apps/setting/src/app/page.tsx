@@ -1,7 +1,6 @@
 "use client";
-
-import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { Button } from "@repo/ui/button";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 
 const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
 
@@ -11,6 +10,12 @@ export default function Web() {
 	const [error, setError] = useState<string | undefined>();
 
 	useEffect(() => {
+		if (name.trim().length === 0) {
+			setResponse(null);
+			setError(undefined);
+			return;
+		}
+
 		setResponse(null);
 		setError(undefined);
 	}, [name]);
