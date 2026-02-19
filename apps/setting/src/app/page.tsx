@@ -8,6 +8,7 @@ export default function Web() {
 	const [name, setName] = useState<string>("");
 	const [response, setResponse] = useState<{ message: string } | null>(null);
 	const [error, setError] = useState<string | undefined>();
+	const er
 	useEffect(() => {
 		setResponse(null);
 		setError(undefined);
