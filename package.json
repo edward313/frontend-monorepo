@@ -9,6 +9,7 @@
 		"format": "biome format --write .",
 		"prepare": "husky",
 		"lint": "turbo run lint",
+		"typecheck": "turbo run typecheck",
 		"test": "turbo run test"
 	},
 	"dependencies": {},

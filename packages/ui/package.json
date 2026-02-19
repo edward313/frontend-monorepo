@@ -5,7 +5,8 @@
 		"./button": "./src/button.tsx"
 	},
 	"scripts": {
-		"lint": "biome check ."
+		"lint": "biome check .",
+		"typecheck": "tsc -p tsconfig.json --noEmit"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.61",

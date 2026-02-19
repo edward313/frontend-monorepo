@@ -6,6 +6,7 @@
 		"build": "next build",
 		"dev": "PORT=3000 next dev",
 		"lint": "biome check .",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
 		"start": "next start"
 	},
 	"dependencies": {

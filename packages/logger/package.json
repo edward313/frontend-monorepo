@@ -12,6 +12,7 @@
 		"clean": "rm -rf dist",
 		"dev": "tsc -w",
 		"lint": "biome check .",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
 		"test": "jest"
 	},
 	"jest": {
