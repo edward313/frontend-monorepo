@@ -11,7 +11,7 @@
 		"build": "tsc",
 		"clean": "rm -rf dist",
 		"dev": "tsc -w",
-		"lint": "eslint \"src/**/*.ts*\" --max-warnings 0",
+		"lint": "biome check .",
 		"test": "jest"
 	},
 	"jest": {
@@ -19,11 +19,9 @@
 	},
 	"devDependencies": {
 		"@jest/globals": "^30.2.0",
-		"@repo/eslint-config": "workspace:*",
 		"@repo/jest-presets": "workspace:*",
 		"@repo/typescript-config": "workspace:*",
 		"@types/node": "^20.11.24",
-		"eslint": "^8.57.0",
 		"jest": "^30.2.0",
 		"typescript": "5.5.4"
 	}
