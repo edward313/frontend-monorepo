@@ -1,11 +1,11 @@
 version: "3"
 
 services:
-  web:
-    container_name: web
+  starter:
+    container_name: starter
     build:
       context: .
-      dockerfile: ./apps/web/Dockerfile
+      dockerfile: ./apps/starter/Dockerfile
     restart: always
     ports:
       - 3000:3000

@@ -13,7 +13,7 @@ FROM base AS prepare
 RUN yarn global add turbo
 COPY . .
 # Add lockfile and package.json's of isolated subworkspace
-RUN turbo prune web --docker
+RUN turbo prune starter --docker
 
 # ---
 FROM base AS builder
@@ -41,8 +41,8 @@ USER nextjs
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/starter/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/starter/.next/static ./apps/starter/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/starter/public ./apps/starter/public
 
-CMD node apps/web/server.js
+CMD node apps/starter/server.js

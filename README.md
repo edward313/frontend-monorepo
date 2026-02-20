@@ -63,7 +63,7 @@ This example includes optional remote caching. In the Dockerfiles of the apps, u
 
 You can test this behavior using a command like:
 
-`docker build -f apps/web/Dockerfile . --build-arg TURBO_TEAM=“your-team-name” --build-arg TURBO_TOKEN=“your-token“ --no-cache`
+`docker build -f apps/starter/Dockerfile . --build-arg TURBO_TEAM=“your-team-name” --build-arg TURBO_TOKEN=“your-token“ --no-cache`
 
 ### Utilities
 
