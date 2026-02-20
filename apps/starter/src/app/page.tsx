@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@repo/ui/button";
-import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import { Button, Input } from "@repo/ui";
+import { type FormEvent, useEffect, useState } from "react";
 
 const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
 
@@ -21,8 +21,7 @@ export default function Web() {
 		setError(undefined);
 	}, [name]);
 
-	const onChange = (e: ChangeEvent<HTMLInputElement>) =>
-		setName(e.target.value);
+	const onChange = (value: string) => setName(value);
 
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -42,13 +41,15 @@ export default function Web() {
 			<h1>Web</h1>
 			<form onSubmit={onSubmit}>
 				<label htmlFor="name">Name </label>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					value={name}
-					onChange={onChange}
-				></input>
+				<div className="bg-amber-400">
+					<Input
+						type="text"
+						name="name"
+						id="name"
+						value={name}
+						onChange={onChange}
+					/>
+				</div>
 				<Button type="submit">Submit</Button>
 			</form>
 			{error && (
