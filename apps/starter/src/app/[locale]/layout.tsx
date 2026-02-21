@@ -1,5 +1,5 @@
+import { hasLocale, NextIntlClientProvider } from "@repo/i18n";
 import type { Metadata } from "next";
-import { NextIntlClientProvider, hasLocale } from "@repo/i18n";
 import "../globals.css";
 import { routing } from "@repo/i18n/routing";
 import { notFound } from "next/navigation";
