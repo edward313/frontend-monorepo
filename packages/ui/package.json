@@ -2,7 +2,14 @@
 	"name": "@repo/ui",
 	"version": "0.0.0",
 	"exports": {
-		".": "./src/index.ts"
+		"./components/*": {
+			"types": "./src/components/*.tsx",
+			"default": "./src/components/*"
+		},
+		"./utils/*": {
+			"types": "./src/utils/*.ts",
+			"default": "./src/utils/*"
+		}
 	},
 	"scripts": {
 		"lint": "biome check .",

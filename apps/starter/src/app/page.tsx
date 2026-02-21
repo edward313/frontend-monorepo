@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Input } from "@repo/ui";
+import { Button } from "@repo/ui/components/button";
+import { Input } from "@repo/ui/components/input";
 import { type FormEvent, useEffect, useState } from "react";
 
 const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";

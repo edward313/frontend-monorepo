@@ -1,7 +1,8 @@
 {
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.organizeImports": "always"
+		"source.organizeImports": "never",
+		"source.organizeImports.biome": "always"
 	},
 	"editor.defaultFormatter": "biomejs.biome",
 	"[javascript]": {
@@ -31,6 +32,7 @@
 	"[mdx]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
+	"prettier.enable": false,
 	"css.lint.unknownAtRules": "ignore",
 	"scss.lint.unknownAtRules": "ignore",
 	"less.lint.unknownAtRules": "ignore"
