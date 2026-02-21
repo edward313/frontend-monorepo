@@ -1,0 +1,11 @@
+{
+  "HomePage": {
+    "title": "Xin chào!",
+    "about": "Đi tới trang giới thiệu"
+  },
+  "AboutPage": {
+    "title": "Giới thiệu",
+    "description": "Đây là trang giới thiệu",
+    "backToHome": "Về trang chủ"
+  }
+}
