@@ -94,7 +94,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 					{isRoot && isSomeSelected ? (
 						<svg
 							className={cn(
-								"pointer-events-none absolute inset-0 m-auto block size-3 -translate-y-px text-(--checkbox-icon-color)",
+								"pointer-events-none absolute left-1/2 top-3/4 block -translate-x-1/2 translate-y-0.5 text-[var(--checkbox-icon-color)]",
 								"opacity-0 transition-all duration-100",
 								"peer-checked:opacity-100",
 								classNames.icon,

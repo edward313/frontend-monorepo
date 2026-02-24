@@ -206,6 +206,7 @@ export default function UiInputsDemo() {
 					value={multiCheckboxValue}
 					onChange={setMultiCheckboxValue}
 					options={options}
+					isSomeSelected={true}
 				/>
 			</div>
 
@@ -220,6 +221,8 @@ export default function UiInputsDemo() {
 							id="demo-checkbox-enable"
 							checked={checkboxChecked}
 							onCheckedChange={(value) => setCheckboxChecked(value === true)}
+							isSomeSelected={true}
+							isRoot
 						/>
 						Enable
 					</label>
