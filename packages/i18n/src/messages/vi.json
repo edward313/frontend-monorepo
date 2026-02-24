@@ -7,5 +7,10 @@
 		"title": "Giới thiệu",
 		"description": "Đây là trang giới thiệu",
 		"backToHome": "Về trang chủ"
+	},
+	"Common": {
+		"search": "Tìm kiếm",
+		"searching": "Đang tìm",
+		"no-data": "Không có dữ liệu"
 	}
 }
