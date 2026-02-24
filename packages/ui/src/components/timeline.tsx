@@ -1,9 +1,8 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import * as React from "react";
-
 import { cn } from "@repo/ui/utils/cn";
+import * as React from "react";
 
 // Types
 type TimelineContextValue = {

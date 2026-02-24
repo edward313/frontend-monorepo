@@ -1,8 +1,7 @@
 "use client";
 
-import { Drawer as DrawerPrimitive } from "vaul";
-
 import { cn } from "@repo/ui/utils/cn";
+import { Drawer as DrawerPrimitive } from "vaul";
 
 function Drawer({
 	...props

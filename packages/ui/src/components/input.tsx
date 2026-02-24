@@ -1,7 +1,7 @@
+import { useSuffixArea } from "@repo/ui/components/use-suffix-area";
+import { cn } from "@repo/ui/utils/cn";
 import { ChevronDownIcon, Loader } from "lucide-react";
 import type * as React from "react";
-import { cn } from "@repo/ui/utils/cn";
-import { useSuffixArea } from "@repo/ui/components/use-suffix-area";
 
 export type InputProps = {
 	prefix?: React.ReactNode;

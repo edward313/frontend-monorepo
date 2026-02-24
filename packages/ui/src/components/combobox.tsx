@@ -1,15 +1,6 @@
 "use client";
 
 import { CaretUpDown, Check, X } from "@phosphor-icons/react";
-import { Loader } from "lucide-react";
-import { useTranslations } from "next-intl";
-import * as React from "react";
-import type {
-	ControllerRenderProps,
-	FieldError,
-	FieldErrorsImpl,
-	Merge,
-} from "react-hook-form";
 import { Button } from "@repo/ui/components/button";
 import {
 	Command,
@@ -25,10 +16,19 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@repo/ui/components/popover";
-import { cn } from "@repo/ui/utils/cn";
 import type { Option } from "@repo/ui/types/common";
 import { wait } from "@repo/ui/utils";
+import { cn } from "@repo/ui/utils/cn";
 import { encodeStr } from "@repo/ui/utils/format-text";
+import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
+import * as React from "react";
+import type {
+	ControllerRenderProps,
+	FieldError,
+	FieldErrorsImpl,
+	Merge,
+} from "react-hook-form";
 
 interface BaseComboboxProps
 	extends Partial<

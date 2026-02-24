@@ -1,9 +1,9 @@
+import type { SuffixSelectlectProps } from "@repo/ui/components/prefix-select";
+import { useSuffixArea } from "@repo/ui/components/use-suffix-area";
 import { cn } from "@repo/ui/utils/cn";
 import type React from "react";
-import { NumericFormat } from "react-number-format";
 import type { NumericFormatProps } from "react-number-format";
-import { useSuffixArea } from "@repo/ui/components/use-suffix-area";
-import type { SuffixSelectlectProps } from "@repo/ui/components/prefix-select";
+import { NumericFormat } from "react-number-format";
 
 export type InputNumberProps = {
 	name?: string;
@@ -76,7 +76,7 @@ const InputNumber = ({
 				)}
 				style={inputPaddingStyle}
 				onValueChange={(values) => onValueChange(values.floatValue)}
-				thousandSeparator="," 
+				thousandSeparator=","
 			/>
 
 			{RightArea}

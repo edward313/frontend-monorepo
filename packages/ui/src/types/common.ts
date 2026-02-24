@@ -1,3 +1,4 @@
+import type { badgeVariants } from "@repo/ui/components/badge";
 import type {
 	UseMutationOptions,
 	UseQueryOptions,
@@ -5,7 +6,6 @@ import type {
 import type { ColumnDef } from "@tanstack/react-table";
 import type { VariantProps } from "class-variance-authority";
 import type React from "react";
-import type { badgeVariants } from "@repo/ui/components/badge";
 
 export type ObjectResponse<T> = {
 	status: number;
@@ -108,12 +108,12 @@ export type FormatDateType =
 	| "dd/MM/yyyy HH:mm:ss"
 	| "HH:mm";
 export enum DateRange {
-  TODAY = "today",
-  YESTERDAY = "yesterday",
-  THIS_WEEK = "this_week",
-  LAST_WEEK = "last_week",
-  THIS_MONTH = "this_month",
-  LAST_MONTH = "last_month",
+	TODAY = "today",
+	YESTERDAY = "yesterday",
+	THIS_WEEK = "this_week",
+	LAST_WEEK = "last_week",
+	THIS_MONTH = "this_month",
+	LAST_MONTH = "last_month",
 }
 export type QueryOptions<T> = Omit<
 	UseQueryOptions<any, Error, T, any>,

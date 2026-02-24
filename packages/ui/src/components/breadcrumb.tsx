@@ -1,9 +1,8 @@
+import { Circle } from "@phosphor-icons/react";
 import { Slot } from "@radix-ui/react-slot";
+import { cn } from "@repo/ui/utils/cn";
 import { MoreHorizontal } from "lucide-react";
 import type * as React from "react";
-
-import { cn } from "@repo/ui/utils/cn";
-import { Circle } from "@phosphor-icons/react";
 
 function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
 	return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;

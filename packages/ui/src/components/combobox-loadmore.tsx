@@ -1,21 +1,6 @@
 "use client";
 
 import { CaretUpDown, Check, X } from "@phosphor-icons/react";
-import type {
-	FetchNextPageOptions,
-	FetchPreviousPageOptions,
-	InfiniteQueryObserverResult,
-} from "@tanstack/react-query";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import { Loader } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type {
-	ControllerRenderProps,
-	FieldError,
-	FieldErrorsImpl,
-	Merge,
-} from "react-hook-form";
 import { Button } from "@repo/ui/components/button";
 import {
 	Command,
@@ -32,10 +17,25 @@ import {
 	PopoverTrigger,
 } from "@repo/ui/components/popover";
 import { Skeleton } from "@repo/ui/components/skeleton";
-import { cn } from "@repo/ui/utils/cn";
 import type { Option } from "@repo/ui/types/common";
 import { wait } from "@repo/ui/utils";
+import { cn } from "@repo/ui/utils/cn";
 import { encodeStr } from "@repo/ui/utils/format-text";
+import type {
+	FetchNextPageOptions,
+	FetchPreviousPageOptions,
+	InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import type {
+	ControllerRenderProps,
+	FieldError,
+	FieldErrorsImpl,
+	Merge,
+} from "react-hook-form";
 
 interface BaseComboboxLoadMoreProps
 	extends Partial<
