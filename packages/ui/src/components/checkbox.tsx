@@ -67,9 +67,11 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 						...style,
 					} as React.CSSProperties
 				}
-				className={cn("flex", className, classNames.root)}
+				className={cn("flex items-center", className, classNames.root)}
 			>
-				<div className={cn("relative size-4", classNames.inner)}>
+				<div
+					className={cn("relative size-4 flex items-center", classNames.inner)}
+				>
 					<input
 						{...props}
 						defaultChecked={defaultChecked}
@@ -98,8 +100,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 								classNames.icon,
 							)}
 							width="11"
-							height="8"
-							viewBox="0 0 11 4"
+							height="11"
+							viewBox="0 0 11 11"
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
 						>

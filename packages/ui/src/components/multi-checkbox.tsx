@@ -72,7 +72,7 @@ const MultiCheckbox = ({
 							control={control}
 							name={name as string}
 							render={() => {
-								return <div>{<Checkbox />}</div>;
+								return renderItemCheckbox(option, isForm);
 							}}
 						/>
 					))
