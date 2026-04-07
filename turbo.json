@@ -1,0 +1,28 @@
+{
+	"$schema": "https://turborepo.dev/schema.json",
+	"tasks": {
+		"build": {
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/dist/**"],
+			"dependsOn": ["^build"],
+			"env": ["NEXT_PUBLIC_API_HOST"]
+		},
+		"test": {
+			"outputs": ["coverage/**"],
+			"dependsOn": []
+		},
+		"lint": {
+			"dependsOn": ["^build"]
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"clean": {
+			"cache": false
+		}
+	}
+}

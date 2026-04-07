@@ -1,0 +1,53 @@
+{
+	"HomePage": {
+		"title": "Hello world!",
+		"about": "Go to the about page"
+	},
+	"AboutPage": {
+		"title": "About",
+		"description": "This is the about page",
+		"backToHome": "Back to home"
+	},
+	"Common": {
+		"search": "Search",
+		"searching": "Searching",
+		"no-data": "No data"
+	},
+	"Group": {
+		"Main": "Main",
+		"Settings": "Settings"
+	},
+	"Menu": {
+		"Dashboard": "Dashboard",
+		"Products": "Products",
+		"All Products": "All Products",
+		"Categories": "Categories",
+		"Profile": "Profile",
+		"Team": "Team"
+	},
+	"AuthDashboard": {
+		"title": "Dashboard",
+		"subtitle": "Quick snapshot for testing the auth layout.",
+		"backHome": "Back to Home",
+		"login": "Login",
+		"cards": {
+			"revenue": { "label": "Revenue", "note": "+12.4% vs last week" },
+			"orders": { "label": "Orders", "note": "+8.1% vs last week" },
+			"activeUsers": { "label": "Active Users", "note": "-1.3% vs last week" },
+			"tickets": { "label": "Tickets", "note": "Open now" }
+		},
+		"overview": {
+			"title": "Weekly Overview",
+			"avgOrder": "Avg. Order",
+			"conversion": "Conversion",
+			"newLeads": "New Leads"
+		},
+		"channels": {
+			"title": "Top Channels",
+			"organic": "Organic",
+			"email": "Email",
+			"ads": "Ads",
+			"social": "Social"
+		}
+	}
+}

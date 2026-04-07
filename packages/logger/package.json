@@ -1,0 +1,29 @@
+{
+	"name": "@repo/logger",
+	"version": "0.0.0",
+	"private": true,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist/**"
+	],
+	"scripts": {
+		"build": "tsc",
+		"clean": "rm -rf dist",
+		"dev": "tsc -w",
+		"lint": "biome check .",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"test": "jest"
+	},
+	"jest": {
+		"preset": "@repo/jest-presets/node"
+	},
+	"devDependencies": {
+		"@jest/globals": "^30.2.0",
+		"@repo/jest-presets": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"@types/node": "^20.11.24",
+		"jest": "^30.2.0",
+		"typescript": "5.5.4"
+	}
+}

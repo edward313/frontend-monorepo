@@ -1,0 +1,56 @@
+{
+	"HomePage": {
+		"title": "Xin chào!",
+		"about": "Đi tới trang giới thiệu"
+	},
+	"AboutPage": {
+		"title": "Giới thiệu",
+		"description": "Đây là trang giới thiệu",
+		"backToHome": "Về trang chủ"
+	},
+	"Common": {
+		"search": "Tìm kiếm",
+		"searching": "Đang tìm",
+		"no-data": "Không có dữ liệu"
+	},
+	"Group": {
+		"Main": "Chính",
+		"Settings": "Cài đặt"
+	},
+	"Menu": {
+		"Dashboard": "Tổng quan",
+		"Products": "Sản phẩm",
+		"All Products": "Tất cả sản phẩm",
+		"Categories": "Danh mục",
+		"Profile": "Hồ sơ",
+		"Team": "Nhóm"
+	},
+	"AuthDashboard": {
+		"title": "Bảng điều khiển",
+		"subtitle": "Tóm tắt nhanh để kiểm tra layout auth.",
+		"backHome": "Về trang chủ",
+		"login": "Đăng nhập",
+		"cards": {
+			"revenue": { "label": "Doanh thu", "note": "+12,4% so với tuần trước" },
+			"orders": { "label": "Đơn hàng", "note": "+8,1% so với tuần trước" },
+			"activeUsers": {
+				"label": "Người dùng hoạt động",
+				"note": "-1,3% so với tuần trước"
+			},
+			"tickets": { "label": "Yêu cầu", "note": "Đang mở" }
+		},
+		"overview": {
+			"title": "Tổng quan tuần",
+			"avgOrder": "Giá trị đơn TB",
+			"conversion": "Chuyển đổi",
+			"newLeads": "Khách hàng mới"
+		},
+		"channels": {
+			"title": "Kênh hàng đầu",
+			"organic": "Tự nhiên",
+			"email": "Email",
+			"ads": "Quảng cáo",
+			"social": "Mạng xã hội"
+		}
+	}
+}

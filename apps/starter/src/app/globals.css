@@ -1,0 +1,21 @@
+@import "@repo/tailwind-config";
+
+@layer base {
+	:root {
+		--app-bg: #ffffff;
+		--app-fg: #0a0a0a;
+	}
+	html.dark {
+		--app-bg: #0a0a0a;
+		--app-fg: #f5f5f5;
+	}
+	html {
+		background-color: var(--app-bg);
+		color: var(--app-fg);
+	}
+	body {
+		background-color: var(--app-bg);
+		color: var(--app-fg);
+		@apply antialiased;
+	}
+}
