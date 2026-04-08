@@ -21,10 +21,10 @@ export default function AuthHomePage() {
 					<p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
 				</div>
 				<div className="flex gap-3">
-					<Link className="text-sm underline" href="/">
+					<Link prefetch={false} className="text-sm underline" href="/">
 						{t("backHome")}
 					</Link>
-					<Link className="text-sm underline" href="/login">
+					<Link prefetch={false} className="text-sm underline" href="/login">
 						{t("login")}
 					</Link>
 				</div>

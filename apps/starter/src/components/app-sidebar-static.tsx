@@ -1,6 +1,6 @@
 import { Link } from "@repo/i18n/navigation";
 import { getTranslations } from "@repo/i18n/server";
-import type { Route, RouteChildren } from "@ui/types/nav";
+import type { Route, RouteChildren } from "@ui/types/nav"; 
 import type { ReactNode } from "react";
 
 type AppSidebarStaticProps = {
@@ -20,6 +20,7 @@ function SidebarLink({
 	return (
 		<Link
 			href={item.url}
+			prefetch={false}
 			className={
 				isSubItem
 					? "text-sm text-muted-foreground hover:text-foreground"
