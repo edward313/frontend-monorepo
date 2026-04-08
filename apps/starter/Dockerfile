@@ -8,18 +8,22 @@ FROM node:${NODE_VERSION}-slim AS base
 # Set working directory
 WORKDIR /app
 
+# Enable pnpm via corepack once in base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="${PNPM_HOME}:${PATH}"
+RUN corepack enable && corepack prepare pnpm@10.28.1 --activate
+
 # ---
 FROM base AS prepare
-RUN yarn global add turbo
 COPY . .
 # Add lockfile and package.json's of isolated subworkspace
-RUN turbo prune starter --docker
+RUN pnpm dlx turbo@2.8.11 prune starter --docker
 
 # ---
 FROM base AS builder
 # First install the dependencies (as they change less often)
 COPY --from=prepare /app/out/json/ .
-RUN yarn install
+RUN pnpm install --frozen-lockfile
 # Build the project
 COPY --from=prepare /app/out/full/ .
 
@@ -30,14 +34,15 @@ COPY --from=prepare /app/out/full/ .
 # ARG TURBO_TOKEN
 # ENV TURBO_TOKEN=$TURBO_TOKEN
 
-RUN yarn turbo build
+RUN pnpm turbo build --filter starter
 
-# ---
 FROM node:${NODE_VERSION}-alpine AS runner
+ENV NODE_ENV=production
 # Don't run production as root for security reasons
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
+WORKDIR /app
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
