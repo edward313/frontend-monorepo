@@ -8,79 +8,95 @@ variables:
 image: node:20-bullseye
 
 stages:
-  - build
-  - build-image
+  # - build
+  # - build-image
   - deploy
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .pnpm/
-    - .turbo/
-    - node_modules/
+# cache:
+#   key: ${CI_COMMIT_REF_SLUG}
+#   paths:
+#     - .pnpm/
+#     - .turbo/
+#     - node_modules/
 
-node-build:
-  image: node:20
-  stage: build
-  cache:
-    key: node-cache
-    paths:
-      - .pnpm/
-      - source/node_modules/
+# node-build:
+#   image: node:20
+#   stage: build
+#   cache:
+#     key: node-cache
+#     paths:
+#       - .pnpm/
+#       - source/node_modules/
+#   before_script:
+#     - corepack enable
+#     - corepack prepare pnpm@10.28.1 --activate
+#     - pnpm config set store-dir .pnpm
+#   script:
+#     - pnpm install --frozen-lockfile
+#     - pnpm run build --filter starter
+#   artifacts:
+#     paths:
+#       - apps/starter/.next/standalone
+#       - apps/starter/.next/static
+#       - apps/starter/public
+#   only:
+#     - dev
+
+# build-image:
+#   stage: build-image
+#   image: docker:26.1.4
+#   services:
+#     - name: docker:26.1.4-dind
+#   variables:
+#     DOCKER_TLS_CERTDIR: "/certs"
+#     DOCKER_HOST: "tcp://docker:2376"
+#     DOCKER_TLS_VERIFY: "1"
+#     DOCKER_CERT_PATH: "/certs/client"
+#   before_script: []
+#   needs:
+#     - job: node-build
+#       artifacts: true
+#   script:
+#     - until docker info; do sleep 2; done
+#     - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
+#     - docker build --tag "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}" -f apps/starter/Dockerfile .
+#     - docker image push "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}"
+
+deploy:
+  stage: deploy
   before_script:
-    - corepack enable
-    - corepack prepare pnpm@10.28.1 --activate
-    - pnpm config set store-dir .pnpm
+    - chmod 400 $MASTER_SSH_KEY
+    - apt-get update -y
+    - apt-get install -y openssh-client
   script:
-    - pnpm install --frozen-lockfile
-    - pnpm run build --filter starter
-  artifacts:
-    paths:
-      - apps/starter/.next/standalone
-      - apps/starter/.next/static
-      - apps/starter/public
+    - |
+      echo "Checking SSH connectivity to ${HOST_SERVER}..."
+      if ssh -o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i "$MASTER_SSH_KEY" "${USERNAME}@${HOST_SERVER}" "echo SSH_OK"; then
+        echo "SSH connected"
+      else
+        echo "SSH failed, verbose log:"
+        ssh -vvv -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i "$MASTER_SSH_KEY" "${USERNAME}@${HOST_SERVER}" "echo SSH_OK" || true
+        exit 1
+      fi
   only:
     - dev
 
-build-image:
-  stage: build-image
-  image: docker:26.1.4
-  services:
-    - name: docker:26.1.4-dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_HOST: "tcp://docker:2376"
-    DOCKER_TLS_VERIFY: "1"
-    DOCKER_CERT_PATH: "/certs/client"
-  before_script: []
-  needs:
-    - job: node-build
-      artifacts: true
-  script:
-    - until docker info; do sleep 2; done
-    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
-    - docker build --tag "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}" -f apps/starter/Dockerfile .
-    - docker image push "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}"
-
-include:
-  - "https://raw.githubusercontent.com/edward313/devops-boilerplate/dev/template/deploy.vps.gitlab-ci.yml"
-
 # Debug SSH connectivity to the target server (manual + non-blocking)
-debug-ssh:
-  stage: deploy
-  image: alpine:3.20
-  variables:
-    USERNAME: "22"
-  before_script:
-    - apk add --no-cache openssh-client bind-tools curl iproute2 netcat-openbsd
-  script:
-    - echo "Runner IP:"
-    - ip addr show
-    - echo "DNS resolution:"
-    - nslookup "${HOST_SERVER}"
-    - echo "TCP connectivity to ${HOST_SERVER}:${USERNAME}:"
-    - nc -vz -w 5 "${HOST_SERVER}" "22" || true
-    - echo "SSH client debug (no auth expected):"
-    - ssh -vvv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${HOST_SERVER}" "${USERNAME}@${HOST_SERVER}" exit || true
-  when: manual
-  allow_failure: true
+# debug-ssh:
+#   stage: deploy
+#   image: alpine:3.20
+#   variables:
+#     USERNAME: "22"
+#   before_script:
+#     - apk add --no-cache openssh-client bind-tools curl iproute2 netcat-openbsd
+#   script:
+#     - echo "Runner IP:"
+#     - ip addr show
+#     - echo "DNS resolution:"
+#     - nslookup "${HOST_SERVER}"
+#     - echo "TCP connectivity to ${HOST_SERVER}:${USERNAME}:"
+#     - nc -vz -w 5 "${HOST_SERVER}" "22" || true
+#     - echo "SSH client debug (no auth expected):"
+#     - ssh -vvv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${HOST_SERVER}" "${USERNAME}@${HOST_SERVER}" exit || true
+#   when: manual
+#   allow_failure: true
