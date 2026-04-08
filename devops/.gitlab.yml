@@ -3,7 +3,7 @@ variables:
   DOCKER_REPO: ${IMAGE_NAME}
   DOCKER_CACHE_IMAGE: ${DOCKER_REPO}:${CI_COMMIT_REF_NAME}
   CI_PROJECT_NAME: fe-monorepo-core
-  APP_DEV_PORT: 3090
+  APP_DEV_PORT: 3000
   PNPM_HOME: ".pnpm"
   NODE_OPTIONS: "--max-old-space-size=4096"
 image: node:20-bullseye
