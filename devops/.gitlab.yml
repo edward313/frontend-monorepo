@@ -57,10 +57,11 @@ build-image:
     - job: node-build
       artifacts: true
   script:
-    - until docker info; do sleep 2; done
-    - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
-    - docker build --tag "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}" -f apps/starter/Dockerfile .
-    - docker image push "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}"
-
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+    - docker build --cache-from ${DOCKER_CACHE_IMAGE}
+      --tag ${DOCKER_CACHE_IMAGE}
+      --tag ${DOCKER_REPO}:${CI_COMMIT_SHA:0:8} -f apps/starter/Dockerfile .
+    - docker image push ${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}
+    - docker image push ${DOCKER_CACHE_IMAGE}
 include:
   - "https://raw.githubusercontent.com/edward313/devops-boilerplate/dev/template/deploy.vps.gitlab-ci.yml"
