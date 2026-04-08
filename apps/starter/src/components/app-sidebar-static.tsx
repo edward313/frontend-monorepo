@@ -51,6 +51,7 @@ export async function AppSidebarStatic({
 				<div className="p-4">
 					<Link
 						href={homePath}
+						prefetch={false}
 						className="flex h-10 w-10 items-center justify-center"
 					>
 						{logo ?? (
