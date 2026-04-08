@@ -1,6 +1,7 @@
 variables:
   IMAGE_NAME: phatluu313/fe-monorepo-core
   DOCKER_REPO: ${IMAGE_NAME}
+  DOCKER_CACHE_IMAGE: ${DOCKER_REPO}:${CI_COMMIT_REF_NAME}
   CI_PROJECT_NAME: phatluu313/fe-monorepo-core
   APP_DEV_PORT: 3090
   PNPM_HOME: ".pnpm"
