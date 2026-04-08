@@ -2,23 +2,17 @@
 
 variables:
   IMAGE_NAME: phatluu313/fe-monorepo-core
-
   DOCKER_REPO: ${IMAGE_NAME}
-  DOCKER_CACHE_IMAGE: ${DOCKER_REPO}:${CI_COMMIT_REF_NAME}
-  CI_PROJECT_NAME : phatluu313/fe-monorepo-core
-  APP_DEV_PORT : 3090
-
-  
+  CI_PROJECT_NAME: phatluu313/fe-monorepo-core
+  APP_DEV_PORT: 3090
+  PNPM_HOME: ".pnpm"
+  NODE_OPTIONS: "--max-old-space-size=4096"
 image: node:20-bullseye
 
 stages:
   - build
   - build-image
   - deploy
-
-variables:
-  PNPM_HOME: ".pnpm"
-  NODE_OPTIONS: "--max-old-space-size=4096"
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
