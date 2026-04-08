@@ -70,17 +70,17 @@ debug-ssh:
   stage: deploy
   image: alpine:3.20
   variables:
-    SSH_PORT: "22"
+    USERNAME: "22"
   before_script:
     - apk add --no-cache openssh-client bind-tools curl iproute2 netcat-openbsd
   script:
     - echo "Runner IP:"
     - ip addr show
     - echo "DNS resolution:"
-    - nslookup "${SSH_HOST}"
-    - echo "TCP connectivity to ${SSH_HOST}:${SSH_PORT}:"
-    - nc -vz -w 5 "${SSH_HOST}" "${SSH_PORT}" || true
+    - nslookup "${HOST_SERVER}"
+    - echo "TCP connectivity to ${HOST_SERVER}:${USERNAME}:"
+    - nc -vz -w 5 "${HOST_SERVER}" "22" || true
     - echo "SSH client debug (no auth expected):"
-    - ssh -vvv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${SSH_PORT}" "${SSH_USER}@${SSH_HOST}" exit || true
+    - ssh -vvv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${HOST_SERVER}" "${USERNAME}@${HOST_SERVER}" exit || true
   when: manual
   allow_failure: true
