@@ -27,10 +27,7 @@ cache:
     - .turbo/
     - node_modules/
 
-before_script:
-  - corepack enable
-  - corepack prepare pnpm@10.28.1 --activate
-  - pnpm config set store-dir .pnpm
+
 
 node-build:
   image: node:20
@@ -40,12 +37,16 @@ node-build:
     paths:
       - .pnpm/
       - source/node_modules/
+  before_script:
+      - corepack enable
+      - corepack prepare pnpm@10.28.1 --activate
+      - pnpm config set store-dir .pnpm
   script:
     - pnpm install --frozen-lockfile
     - pnpm run build --filter starter
   artifacts:
     paths:
-      - ./source/build
+      - apps/starter/.next
   only:
     - dev
 
@@ -56,6 +57,7 @@ build-image:
     - name: docker:26.1.4-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
+  before_script: []
   script:
     - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
     - docker build --cache-from "${DOCKER_CACHE_IMAGE}" --tag "${DOCKER_CACHE_IMAGE}" --tag "${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}" -f apps/starter/Dockerfile .
@@ -64,4 +66,3 @@ build-image:
 
 include:
   - "https://raw.githubusercontent.com/edward313/devops-boilerplate/dev/template/deploy.vps.gitlab-ci.yml"
-
