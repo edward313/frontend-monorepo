@@ -61,5 +61,14 @@ build-image:
       --tag ${DOCKER_REPO}:${CI_COMMIT_SHA:0:8} -f apps/starter/Dockerfile .
     - docker image push ${DOCKER_REPO}:${CI_COMMIT_SHA:0:8}
     - docker image push ${DOCKER_CACHE_IMAGE}
-include:
-  - "https://raw.githubusercontent.com/edward313/devops-boilerplate/dev/template/deploy.vps.gitlab-ci.yml"
+deploy:
+  stage: deploy
+  before_script:
+    - chmod 400 $MASTER_SSH_KEY
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY ${USERNAME}@${HOST_SERVER} "sudo docker rm -f ${CI_PROJECT_NAME} || true"
+    - ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY ${USERNAME}@${HOST_SERVER} "sudo docker rmi \$(docker images -q ${DOCKER_REPO}) || true"
+    # deploy
+    - ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY ${USERNAME}@${HOST_SERVER} "sudo docker container run -d --name ${CI_PROJECT_NAME} -p ${APP_DEV_PORT}:${APP_DEV_PORT} $IMAGE_NAME:${CI_COMMIT_SHA:0:8}"
+  only:
+    - dev
