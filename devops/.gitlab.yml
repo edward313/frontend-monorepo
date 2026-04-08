@@ -1,0 +1,41 @@
+image: node:20-bullseye
+
+stages:
+  - install
+  - lint
+  - test
+  - build
+
+variables:
+  PNPM_HOME: ".pnpm"
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .pnpm/
+    - .turbo/
+    - node_modules/
+
+before_script:
+  - corepack enable
+  - corepack prepare pnpm@10.28.1 --activate
+  - pnpm config set store-dir .pnpm
+
+node-build:
+  image: node:20
+  stage: build
+  cache:
+    key: node-cache
+    paths:
+      - .pnpm/
+      - source/node_modules/
+  script:
+    - cd source
+    - pnpm install --frozen-lockfile
+    - pnpm run build --filter starter
+  artifacts:
+    paths:
+      - ./source/build
+  only:
+    - dev
