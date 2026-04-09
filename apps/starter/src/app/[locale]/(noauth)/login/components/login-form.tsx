@@ -5,23 +5,30 @@ import { Button } from "@ui/components/button";
 import { Form, RHFTextfield } from "@ui/components/form";
 import { toast } from "@ui/components/sonner";
 import { login } from "api/auth";
+import { setCookie } from "cookies-next";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { storageKeys } from "@/constants/app";
 import type { LoginFormType } from "@/types/auth";
 
 const LoginForm = () => {
+	const router = useRouter();
 	const form = useForm();
 	const { control, handleSubmit } = form;
 
 	const loginMutation = useMutation({
 		mutationFn: (values: LoginFormType) =>
 			login({ data: { ...values, grant_type: "password" } }),
-		onSuccess: () => {
+		onSuccess: (data: { access_token?: string; refresh_token?: string }) => {
+			data?.access_token &&
+				setCookie(storageKeys.accessToken, data.access_token);
+			data?.refresh_token &&
+				setCookie(storageKeys.refreshToken, data.refresh_token);
 			toast.success("Đăng nhập thành công");
+			router.replace("/");
 		},
 		onError: (error) => {
-			const message =
-				error instanceof Error ? error.message : "Đăng nhập thất bại";
-			toast.error(message);
+			toast.error(error.message || "Đăng nhập thất bại");
 		},
 	});
 
@@ -39,7 +46,7 @@ const LoginForm = () => {
 			<Form {...form}>
 				<form
 					id="login-form"
-					onSubmit={handleSubmit(onSubmit, (err) => console.log(err))}
+					onSubmit={handleSubmit(onSubmit)}
 					className="space-y-4"
 				>
 					<RHFTextfield
