@@ -1,6 +1,12 @@
 import middleware from "@repo/i18n/middleware";
+import type { NextRequest } from "next/server";
+import createMiddlewareChain from "./middlewares";
 
-export default middleware;
+export default async function proxy(request: NextRequest) {
+	const response = await Promise.resolve(middleware(request));
+
+	return createMiddlewareChain(request, response);
+}
 
 export const config = {
 	// Match all pathnames except for

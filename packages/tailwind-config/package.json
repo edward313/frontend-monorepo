@@ -3,8 +3,12 @@
 	"version": "0.0.0",
 	"type": "module",
 	"private": true,
+	"style": "./shared-styles.css",
 	"exports": {
-		".": "./shared-styles.css",
+		".": {
+			"style": "./shared-styles.css",
+			"default": "./shared-styles.css"
+		},
 		"./postcss": "./postcss.config.js"
 	},
 	"devDependencies": {

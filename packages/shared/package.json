@@ -26,6 +26,9 @@
 	"scripts": {
 		"lint": "biome check --write ."
 	},
+	"dependencies": {
+		"query-string": "^9.0.1"
+	},
 	"devDependencies": {
 		"@repo/typescript-config": "workspace:*",
 		"typescript": "5.5.4"
