@@ -2,14 +2,13 @@ import middleware from "@repo/i18n/middleware";
 import { createMiddlewareChain } from "@repo/shared";
 import type { NextRequest, NextResponse } from "next/server";
 import authentication from "./middlewares/authentication";
-import authorization from "./middlewares/authorization";
 
 export default async function proxy(request: NextRequest) {
 	const response = await Promise.resolve(middleware(request));
-	return createMiddlewareChain<NextRequest, NextResponse>(
-		authentication,
-		authorization,
-	).run(request, response);
+	return createMiddlewareChain<NextRequest, NextResponse>(authentication).run(
+		request,
+		response,
+	);
 }
 
 export const config = {

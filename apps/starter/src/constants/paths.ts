@@ -1,4 +1,4 @@
-const paths = {
+const PATHS = {
 	home: "/",
 	login: "/login",
 	homeLocale: "/[locale]",
@@ -6,10 +6,10 @@ const paths = {
 };
 
 export const publicPaths = [];
-export const unauthenticatedPaths = [paths.login, paths.loginLocale];
+export const unauthenticatedPaths = [PATHS.login];
 
 // Placeholders so middlewares can import safely.
 export const routesRoles = {};
 export const teacherRewritePaths = {};
 
-export default paths;
+export default PATHS;

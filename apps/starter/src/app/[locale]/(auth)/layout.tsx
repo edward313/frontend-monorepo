@@ -1,5 +1,6 @@
-import { SidebarProvider } from "@ui/components/sidebar";
+import { SidebarInset, SidebarProvider } from "@ui/components/sidebar";
 import type { Metadata } from "next";
+import Header from "@/components";
 import { AppSidebar } from "@/components/app-sidebar";
 import { MenuConfig } from "@/constants/menuConfig";
 
@@ -17,9 +18,12 @@ export default function AuthLayout({
 		<div className="flex min-h-svh w-full">
 			<SidebarProvider>
 				<AppSidebar routes={MenuConfig} />
-				<main className="px-4 lg:px-8 py-4 flex-1 flex flex-col mx-auto w-full">
-					{children}
-				</main>
+				<SidebarInset className="contain-inline-size">
+					<Header />
+					<main className="px-4 lg:px-8 py-4 flex-1 flex flex-col mx-auto w-full">
+						{children}
+					</main>
+				</SidebarInset>
 			</SidebarProvider>
 		</div>
 	);
