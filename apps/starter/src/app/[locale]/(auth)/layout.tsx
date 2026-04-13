@@ -15,16 +15,14 @@ export default function AuthLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<div className="flex min-h-svh w-full">
-			<SidebarProvider>
-				<AppSidebar routes={MenuConfig} />
-				<SidebarInset className="contain-inline-size">
-					<Header />
-					<main className="px-4 lg:px-8 py-4 flex-1 flex flex-col mx-auto w-full">
-						{children}
-					</main>
-				</SidebarInset>
-			</SidebarProvider>
-		</div>
+		<SidebarProvider>
+			<AppSidebar routes={MenuConfig} />
+			<SidebarInset className="contain-inline-size">
+				<Header />
+				<main className="px-4 lg:px-8 py-4 flex-1 flex flex-col mx-auto w-full">
+					{children}
+				</main>
+			</SidebarInset>
+		</SidebarProvider>
 	);
 }

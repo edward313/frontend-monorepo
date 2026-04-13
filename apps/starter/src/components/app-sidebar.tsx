@@ -1,5 +1,17 @@
-import { Link } from "@repo/i18n/navigation";
-import { getTranslations } from "@repo/i18n/server";
+"use client";
+import { useTranslations } from "@repo/i18n";
+import { Link, usePathname } from "@repo/i18n/navigation";
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from "@ui/components/collapsible";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "@ui/components/dropdown-menu";
 import { Separator } from "@ui/components/separator";
 import {
 	Sidebar,
@@ -11,9 +23,12 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	SidebarMenuSub,
+	SidebarMenuSubItem,
 } from "@ui/components/sidebar";
 import type { Route, RouteChildren } from "@ui/types/nav";
 import Image from "next/image";
+
 import { Fragment, type ReactNode } from "react";
 
 type AppSidebarProps = {
@@ -22,41 +37,109 @@ type AppSidebarProps = {
 	logo?: ReactNode;
 	logoAlt?: string;
 };
-function SidebarLink({
-	item,
-	isSubItem = false,
-}: {
+type SidebarLinkProps = {
 	item: RouteChildren;
-	isSubItem?: boolean;
-}) {
+	isActive: boolean;
+};
+type CollapsibleMenuProps = {
+	item: RouteChildren;
+};
+const SidebarLink = ({ item, isActive }: SidebarLinkProps) => {
 	return (
-		<Link
-			href={item.url}
-			prefetch={false}
-			className={
-				isSubItem
-					? "text-sm text-muted-foreground hover:text-foreground"
-					: "text-sm font-medium text-foreground hover:text-foreground"
-			}
+		<SidebarMenuButton
+			isActive={!!isActive}
+			asChild
+			className="min-h-10 font-medium"
 		>
-			<span className="inline-flex items-center gap-2">
+			<Link href={item.url}>
 				{item.icon}
-				<span className={isSubItem ? "text-sm" : "text-base"}>
-					{item.title}
-				</span>
-			</span>
-		</Link>
+				<span className="text-base">{item.title}</span>
+			</Link>
+		</SidebarMenuButton>
 	);
-}
+};
+const CollapsibleMenu = ({ item }: CollapsibleMenuProps) => {
+	const tMenu = useTranslations("Menu");
+	const pathname = usePathname();
+	const activeMenu = item.children?.findLast((child) =>
+		pathname.toString().includes(child.url),
+	);
+	return (
+		<Collapsible
+			key={item.title}
+			asChild
+			defaultOpen={true}
+			className="group/collapsible"
+		>
+			<SidebarMenuItem>
+				<CollapsibleTrigger
+					asChild
+					className="min-h-10 group-data-[collapsible=icon]:hidden"
+				>
+					<SidebarMenuButton
+						isActive={!!activeMenu}
+						tooltip={tMenu(item.title)}
+						className="font-medium"
+					>
+						{item.icon && item.icon}
+						<span className="text-base">{tMenu(item.title)}</span>
+					</SidebarMenuButton>
+				</CollapsibleTrigger>
+				<CollapsibleContent>
+					<SidebarMenuSub>
+						{item.children?.map((subItem) => {
+							return (
+								<SidebarMenuSubItem key={subItem.title} className="min-h-10">
+									<SidebarLink
+										item={subItem}
+										isActive={!!activeMenu && subItem.url === activeMenu.url}
+									/>
+								</SidebarMenuSubItem>
+							);
+						})}
+					</SidebarMenuSub>
+				</CollapsibleContent>
 
-export async function AppSidebar({
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						asChild
+						className="hidden group-data-[collapsible=icon]:block"
+					>
+						<SidebarMenuButton tooltip={item.title} className="font-medium">
+							{item.icon && item.icon}
+						</SidebarMenuButton>
+					</DropdownMenuTrigger>
+
+					<DropdownMenuContent
+						className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+						align="start"
+						side="right"
+						sideOffset={4}
+					>
+						<DropdownMenuLabel className="text-muted-foreground text-xs">
+							{item.title}
+						</DropdownMenuLabel>
+						{item.children?.map((subItem) => (
+							<SidebarLink
+								key={subItem.title}
+								item={subItem}
+								isActive={!!activeMenu && subItem.url === activeMenu.url}
+							/>
+						))}
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</SidebarMenuItem>
+		</Collapsible>
+	);
+};
+export function AppSidebar({
 	routes = [],
 	homePath = "/",
 	logo,
 	logoAlt = "Logo",
 }: AppSidebarProps) {
-	const tGroup = await getTranslations("Group");
-	const tMenu = await getTranslations("Menu");
+	const tGroup = useTranslations();
+	const tMenu = useTranslations();
 
 	return (
 		<Sidebar collapsible="icon">
@@ -85,7 +168,7 @@ export async function AppSidebar({
 				<Separator />
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
-				{routes?.map((route, index) => (
+				{routes.map((route, index) => (
 					<Fragment key={route.group}>
 						<SidebarGroup className="px-5">
 							<SidebarGroupLabel className="uppercase">
@@ -96,15 +179,22 @@ export async function AppSidebar({
 									{route.children.map((item) => {
 										return (
 											<Fragment key={item.title}>
-												<SidebarMenuItem>
-													<SidebarLink item={item} />
-												</SidebarMenuItem>
+												{item.children ? (
+													<CollapsibleMenu item={item} />
+												) : (
+													<SidebarMenuItem>
+														<SidebarLink item={item} isActive={true} />
+													</SidebarMenuItem>
+												)}
 											</Fragment>
 										);
 									})}
 								</SidebarMenu>
 							</SidebarGroupContent>
 						</SidebarGroup>
+						{index < routes.length - 1 && (
+							<Separator className="data-[orientation=horizontal]:w-[calc(100%-2rem)] mx-auto" />
+						)}
 					</Fragment>
 				))}
 			</SidebarContent>
