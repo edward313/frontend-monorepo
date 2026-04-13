@@ -1,4 +1,5 @@
 import middleware from "@repo/i18n/middleware";
+
 import { createMiddlewareChain } from "@repo/shared";
 import type { NextRequest, NextResponse } from "next/server";
 import authentication from "./middlewares/authentication";

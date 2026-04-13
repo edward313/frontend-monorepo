@@ -1,3 +1,5 @@
+import { getPathname } from "@repo/i18n/navigation";
+import { routing } from "@repo/i18n/routing";
 import { deleteCookie } from "cookies-next";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -13,19 +15,28 @@ type RedirectArgs = MiddlewareArgs & {
 	path?: string;
 };
 
+type Locale = (typeof routing.locales)[number];
+
 const deleteAllAuthCookies = ({ req, res }: MiddlewareArgs) => {
 	deleteCookie(storageKeys.accessToken, { req, res });
 	deleteCookie(storageKeys.refreshToken, { req, res });
 };
 
 const getSsoUrl = (req: NextRequest) => {
-	const locale = req.nextUrl.locale;
-	const loginPath = locale ? `/${locale}/login` : "/login";
+	const pathname = req.nextUrl.pathname;
+	const pathLocale = routing.locales.find(
+		(locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
+	);
+	const locale =
+		pathLocale ?? routing.defaultLocale;
+	const loginPath =
+		locale !== routing.defaultLocale ? `/${locale}/login` : "/login";
 	return new URL(loginPath, req.url);
 };
 
 export const mergeHeaders = (res: NextResponse, newRes: NextResponse) => {
 	res.headers.forEach((value, key) => {
+		if (key.toLowerCase() === "location") return;
 		newRes.headers.append(key, value);
 	});
 
