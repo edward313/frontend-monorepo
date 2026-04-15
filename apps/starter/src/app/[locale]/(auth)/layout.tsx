@@ -1,7 +1,8 @@
+import { usePathname } from "@repo/i18n/navigation";
+import { AppSidebar } from "@ui/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@ui/components/sidebar";
 import type { Metadata } from "next";
 import Header from "@/components";
-import { AppSidebar } from "@/components/app-sidebar";
 import { MenuConfig } from "@/constants/menuConfig";
 
 export const metadata: Metadata = {

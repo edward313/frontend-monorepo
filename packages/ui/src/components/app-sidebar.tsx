@@ -1,7 +1,7 @@
 "use client";
 
 import { CaretRightIcon } from "@phosphor-icons/react";
-import { Link } from "@repo/i18n/navigation";
+import { Link, usePathname } from "@repo/i18n/navigation";
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -44,7 +44,7 @@ const SidebarLink = ({ item, isActive }: SidebarLinkProps) => {
 		<SidebarMenuButton
 			isActive={!!isActive}
 			asChild
-			className="min-h-10 font-medium"
+			className="min-h-10 font-medium hover:px-3"
 		>
 			<Link href={item.url}>
 				{item.icon}
@@ -79,7 +79,7 @@ const CollapsibleMenu = ({ item, currentPath }: CollapsibleMenuProps) => {
 					<SidebarMenuButton
 						isActive={!!activeMenu}
 						tooltip={tMenu(item.title)}
-						className="font-medium"
+						className="font-medium hover:px-3"
 					>
 						{item.icon && item.icon}
 						<span className="text-base">{tMenu(item.title)}</span>
@@ -147,12 +147,12 @@ export function AppSidebar({
 	routes = [],
 	homePath = "/",
 	hasAnyPermission = () => true,
-	pathname = "",
+	pathname,
 	logo,
 	logoAlt = "Logo",
 }: AppSidebarProps) {
 	const tGroup = useTranslations("Group");
-	const currentPath = pathname;
+	const currentPath = pathname ?? usePathname();
 
 	const routerByPermissions = useMemo(() => {
 		let newRoutes = routes || [];
@@ -218,10 +218,7 @@ export function AppSidebar({
 							<SidebarGroupContent>
 								<SidebarMenu>
 									{route.children.map((item) => {
-										const isActive =
-											item.url === homePath
-												? currentPath === homePath
-												: currentPath.includes(item.url);
+										const isActive = currentPath === item.url;
 										return (
 											hasAnyPermission(item.permissions) && (
 												<Fragment key={item.title}>

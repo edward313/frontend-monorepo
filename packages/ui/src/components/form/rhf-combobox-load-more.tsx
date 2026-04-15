@@ -46,6 +46,8 @@ export type RHFComboboxLoadMoreProps =
 	| ComboboxPropsAllowClear
 	| ComboboxPropsNoAllowClear;
 
+export type RHFComboboxLoadmoreProps = RHFComboboxLoadMoreProps;
+
 const indexFirstError = 0;
 
 export function RHFComboboxLoadMore({

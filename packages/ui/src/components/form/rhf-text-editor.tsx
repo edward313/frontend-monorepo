@@ -26,7 +26,7 @@ type Props = {
 	disabled?: boolean;
 };
 
-export const RHFTexteditor = ({
+export const RHFTextEditor = ({
 	control,
 	name,
 	label,
@@ -119,3 +119,5 @@ export const RHFTexteditor = ({
 		/>
 	);
 };
+
+export const RHFTexteditor = RHFTextEditor;

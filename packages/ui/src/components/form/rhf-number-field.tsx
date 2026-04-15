@@ -24,7 +24,7 @@ type Props = {
 	onValueChange?: (value: number | string | undefined) => void;
 } & Omit<InputNumberProps, "value" | "onValueChange">;
 
-export const RHFNumberfield = ({
+export const RHFNumberField = ({
 	control,
 	name,
 	label,
@@ -64,3 +64,5 @@ export const RHFNumberfield = ({
 		/>
 	);
 };
+
+export const RHFNumberfield = RHFNumberField;
