@@ -1,12 +1,14 @@
 "use client";
 
+import EmptyGallerySvg from "@repo/ui/assets/empty-gallery.svg";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@ui/components/button";
 import { Form, RHFTextfield } from "@ui/components/form";
 import { toast } from "@ui/components/sonner";
 import { login } from "api/auth";
 import { setCookie } from "cookies-next";
-import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { storageKeys } from "@/constants/app";
 import type { LoginFormType } from "@/types/auth";
@@ -38,6 +40,15 @@ const LoginForm = () => {
 	return (
 		<div className="flex flex-col gap-4 w-md max-w-full">
 			<div className="flex flex-col justify-center items-center gap-2">
+				<div className="flex size-24 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-xs">
+					<Image
+						alt=""
+						className="size-16"
+						height={64}
+						src={EmptyGallerySvg}
+						width={64}
+					/>
+				</div>
 				<p className="text-center text-3xl font-semibold">Đăng nhập</p>
 				<p className="text-center font-medium text-description">
 					Vui lòng đăng nhập để bắt đầu giao dịch và quản lý sản phẩm.

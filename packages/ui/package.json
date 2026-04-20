@@ -37,6 +37,9 @@
 		"./enums/*": {
 			"types": "./src/enums/*.ts",
 			"default": "./src/enums/*"
+		},
+		"./assets/*": {
+			"default": "./src/assets/*"
 		}
 	},
 	"scripts": {
