@@ -1,16 +1,10 @@
 import { Slot } from "@radix-ui/react-slot";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@repo/ui/components/tooltip";
 import { cn } from "@repo/ui/utils/cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-normal transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer",
+	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-normal transition-all disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer",
 	{
 		variants: {
 			variant: {
@@ -111,26 +105,19 @@ function Button({
 	const Comp = asChild ? Slot : "button";
 
 	return (
-		<TooltipProvider delayDuration={0}>
-			<Tooltip>
-				<TooltipTrigger asChild>
-					<Comp
-						data-slot="button"
-						className={cn(buttonVariants({ variant, size, className }))}
-						disabled={disabled || loading}
-						{...props}
-					>
-						{(leftSection || loading) && (
-							<span className="inline-flex items-center" data-position="left">
-								{loading ? <Loader {...loaderProps} /> : leftSection}
-							</span>
-						)}
-						{children}
-					</Comp>
-				</TooltipTrigger>
-				{tooltip && <TooltipContent>{tooltip}</TooltipContent>}
-			</Tooltip>
-		</TooltipProvider>
+		<Comp
+			data-slot="button"
+			className={cn(buttonVariants({ variant, size, className }))}
+			disabled={disabled || loading}
+			{...props}
+		>
+			{(leftSection || loading) && (
+				<span className="inline-flex items-center" data-position="left">
+					{loading ? <Loader {...loaderProps} /> : leftSection}
+				</span>
+			)}
+			{children}
+		</Comp>
 	);
 }
 

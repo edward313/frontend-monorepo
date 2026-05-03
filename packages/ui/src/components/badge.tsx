@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 import type * as React from "react";
 
 const badgeVariants = cva(
-	"inline-flex items-center justify-center rounded-sm border px-2 py-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+	"inline-flex items-center justify-center rounded-sm border px-2 py-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-4 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
 	{
 		variants: {
 			variant: {
@@ -28,9 +28,66 @@ const badgeVariants = cva(
 				orange:
 					"border-transparent bg-orange-300 text-orange-900 font-medium [a&]:hover:bg-orange-500/90 focus-visible:ring-orange-500/20 dark:focus-visible:ring-orange-500/40 dark:bg-orange-500/60",
 			},
+			hover: {
+				true: "cursor-pointer transition-all",
+				false: "",
+			},
+			disabled: {
+				true: "pointer-events-none",
+				false: "",
+			},
 		},
+		compoundVariants: [
+			{
+				hover: true,
+				variant: "success",
+				className: "hover:bg-green-500/20",
+			},
+			{
+				hover: true,
+				variant: "info",
+				className: "hover:bg-blue-500/20",
+			},
+			{
+				hover: true,
+				variant: "default",
+				className: "hover:bg-primary/30",
+			},
+			{
+				hover: true,
+				variant: "orange",
+				className: "hover:bg-orange-500/20",
+			},
+			{
+				hover: true,
+				variant: "secondary",
+				className: "hover:bg-secondary/30",
+			},
+			{
+				hover: true,
+				variant: "destructive",
+				className: "hover:bg-destructive/30",
+			},
+			{
+				hover: true,
+				variant: "outline",
+				className: "hover:bg-accent",
+			},
+			{
+				hover: true,
+				variant: "warning",
+				className: "hover:bg-yellow-500/20",
+			},
+			{
+				hover: true,
+				variant: "outline_blue",
+				className: "hover:bg-blue-700/10",
+			},
+		],
 		defaultVariants: {
 			variant: "default",
+			hover: false,
+			disabled: false,
 		},
 	},
 );
@@ -84,23 +141,7 @@ function Badge({
 		<Comp
 			data-slot="badge"
 			className={cn(
-				badgeVariants({ variant }),
-				{
-					"hover:bg-green-500/20": hover && variant === "success",
-					"hover:bg-blue-500/20": hover && variant === "info",
-					"hover:bg-primary/30": hover && variant === "default",
-					"hover:bg-orange-500/20": hover && variant === "orange",
-					"hover:bg-secondary/30": hover && variant === "secondary",
-					"hover:bg-destructive/30": hover && variant === "destructive",
-					"hover:bg-accent": hover && variant === "outline",
-					"hover:bg-yellow-500/20": hover && variant === "warning",
-					"hover:bg-blue-700/10": hover && variant === "outline_blue",
-				},
-				{
-					"cursor-pointer transition-all": hover,
-					"pointer-events-none": disabled,
-				},
-				"[&>svg]:size-4",
+				badgeVariants({ variant, hover, disabled }),
 				className,
 			)}
 			{...props}

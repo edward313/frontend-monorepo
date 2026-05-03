@@ -78,8 +78,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 						disabled={disabled}
 						data-error={!!error}
 						className={cn(
-							"peer size-4 appearance-none rounded-[4px] border border-[#8b8b8b] bg-white transition-colors",
-							"checked:border-[var(--checkbox-color)] checked:bg-[var(--checkbox-color)]",
+							"peer size-4 appearance-none rounded-lg border border-[#8b8b8b] bg-white transition-colors",
+							"checked:border-(--checkbox-color) checked:bg-(--checkbox-color)",
 							"disabled:cursor-not-allowed disabled:border-black/5 disabled:bg-black/5",
 							"data-[error=true]:border-destructive",
 							classNames.input,

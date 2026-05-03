@@ -212,22 +212,6 @@ export function ComboboxLoadMore({
 		virtualizer.getVirtualItems(),
 	]);
 
-	// Auto fetch previous page when scrolling to top
-	// useEffect(() => {
-	// 	const [firstItem] = virtualizer.getVirtualItems();
-
-	// 	if (!firstItem) return;
-
-	// 	if (firstItem.index <= 1 && hasPreviousPage && !isFetchingPreviousPage) {
-	// 		fetchPreviousPage();
-	// 	}
-	// }, [
-	// 	hasPreviousPage,
-	// 	fetchPreviousPage,
-	// 	isFetchingPreviousPage,
-	// 	virtualizer.getVirtualItems(),
-	// ]);
-
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
