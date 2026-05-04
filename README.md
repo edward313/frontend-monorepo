@@ -1,75 +1,138 @@
-# Turborepo Docker starter
+# Frontend Monorepo Core
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest -e with-docker
-```
+A modern frontend monorepo starter built with Turborepo, Next.js, React, Tailwind CSS, and shared internal packages for UI, i18n, and common utilities.
 
 ## What's inside?
 
-This Turborepo includes the following:
+This Turborepo includes the following apps and packages:
 
 ### Apps and Packages
 
-- `web`: a [Next.js](https://nextjs.org/) app
-- `api`: an [Express](https://expressjs.com/) server
-- `@repo/ui`: a React component library
-- `@repo/logger`: Isomorphic logger (a small wrapper around console.log)
-- `@repo/biome-config`: Biome presets
-- `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
-- `@repo/jest-presets`: Jest configurations
+- `starter`: a [Next.js](https://nextjs.org/) app using the App Router, Tailwind CSS, shared UI components, and shared workspace utilities
+- `@repo/ui`: a shared React UI library built on top of [Radix UI](https://www.radix-ui.com/), Tailwind CSS, and reusable providers/components
+- `@repo/i18n`: a shared internationalization package for routing, navigation, middleware, server config, and locale messages
+- `@repo/shared`: shared utilities, constants, middleware helpers, and API client helpers used across apps
+- `@repo/tailwind-config`: shared Tailwind CSS and PostCSS configuration
+- `@repo/biome-config`: shared [Biome](https://biomejs.dev/) configuration presets
+- `@repo/typescript-config`: shared `tsconfig` presets used throughout the monorepo
+- `@repo/logger`: a TypeScript logger package with Jest-based tests
+- `@repo/jest-presets`: shared Jest presets for Node packages
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Docker
-
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
-
-```
-# Install dependencies
-yarn install
-
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-docker network create app_network
-
-# Build prod using new BuildKit engine
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build
-
-# Start prod in detached mode
-docker-compose -f docker-compose.yml up -d
-```
-
-Open http://localhost:3000.
-
-To shutdown all running containers:
-
-```
-# Stop running containers started by docker-compse
- docker-compose -f docker-compose.yml down
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-This example includes optional remote caching. In the Dockerfiles of the apps, uncomment the build arguments for `TURBO_TEAM` and `TURBO_TOKEN`. Then, pass these build arguments to your Docker build.
-
-You can test this behavior using a command like:
-
-`docker build -f apps/starter/Dockerfile . --build-arg TURBO_TEAM=“your-team-name” --build-arg TURBO_TOKEN=“your-token“ --no-cache`
+Each package and app is written in [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
+This Turborepo comes with the following tools already set up:
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [Biome](https://biomejs.dev/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+- [Next.js](https://nextjs.org/) for the main application
+- [React](https://react.dev/) for UI development
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Biome](https://biomejs.dev/) for linting and formatting
+- [Turborepo](https://turborepo.com/) for task orchestration and caching
+- [Jest](https://jestjs.io/) for package-level testing
+- [next-intl](https://next-intl.dev/) for internationalization
+- [Radix UI](https://www.radix-ui.com/) for accessible component primitives
+- [TanStack Query](https://tanstack.com/query/latest) for server state management
+
+## Install
+
+To install all dependencies, run:
+
+```sh
+pnpm install
+```
+
+## Build
+
+To build all apps and packages, run:
+
+```sh
+pnpm run build
+```
+
+You can build a specific workspace by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+
+```sh
+pnpm run build --filter=starter
+```
+
+## Develop
+
+To start development tasks across the monorepo, run:
+
+```sh
+pnpm run dev
+```
+
+To run only the starter app:
+
+```sh
+pnpm run dev --filter=starter
+```
+
+The starter app runs on [http://localhost:3000](http://localhost:3000) by default.
+
+## Lint
+
+To lint all workspaces:
+
+```sh
+pnpm run lint
+```
+
+## Typecheck
+
+To run type checking across the monorepo:
+
+```sh
+pnpm run typecheck
+```
+
+## Test
+
+To run tests across workspaces that define them:
+
+```sh
+pnpm run test
+```
+
+## Format
+
+To format all files with Biome:
+
+```sh
+pnpm run format
+```
+
+## Clean
+
+To run clean tasks across the monorepo:
+
+```sh
+pnpm run clean
+```
+
+## Remote Caching
+
+> [!TIP]
+> Turborepo supports [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) so your team and CI can share build artifacts and speed up repeated tasks.
+
+By default, Turborepo caches locally. To enable Remote Caching with Vercel:
+
+```sh
+pnpm exec turbo login
+pnpm exec turbo link
+```
+
+## Useful Links
+
+Learn more about the tools used in this repository:
+
+- [Turborepo Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
+- [Turborepo Caching](https://turborepo.com/docs/crafting-your-repository/caching)
+- [Turborepo Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
+- [Turborepo Filters](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Biome Documentation](https://biomejs.dev/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
