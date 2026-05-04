@@ -1,5 +1,5 @@
 export const APP_NAME =
-	process.env.NEXT_PUBLIC_APP_NAME?.trim() || "Điện tử HT";
+	process.env.NEXT_PUBLIC_APP_NAME?.trim() || "FRONTEND MONOREPO CORE";
 
 export const storageKeys = {
 	appLocale: "APP_LOCALE",
