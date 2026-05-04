@@ -1,5 +1,5 @@
 import { HEADERS, METHOD } from "@repo/shared/constants";
-import { getBasicAuthFromEnv } from "../src/constants/auth";
+import { getBasicAuthFromEnv } from "@repo/shared/utils/helper";
 
 const apiConfig = {
 	account: {

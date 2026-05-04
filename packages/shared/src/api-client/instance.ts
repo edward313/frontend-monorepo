@@ -1,42 +1,38 @@
 "use client";
-import { storageKeys } from "@repo/shared";
-import { generatePath } from "@repo/shared/utils/path";
+
+import { storageKeys } from "@repo/shared/constants";
 import axios, {
 	type AxiosResponse,
 	type InternalAxiosRequestConfig,
 } from "axios";
-import { deleteCookie, getCookie } from "cookies-next/client";
-import queryString from "query-string";
+import { getCookie } from "cookies-next/client";
 
 const prefixURL = "api";
 
+const serializeParams = (params: Record<string, unknown>) => {
+	const searchParams = new URLSearchParams();
+
+	for (const [key, value] of Object.entries(params)) {
+		if (value === null || value === undefined || value === "") {
+			continue;
+		}
+
+		if (Array.isArray(value)) {
+			searchParams.set(key, value.join(","));
+			continue;
+		}
+
+		searchParams.set(key, String(value));
+	}
+
+	return searchParams.toString();
+};
+
 const instanceConfig = {
 	baseURL: `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API}/${prefixURL}`,
-	paramsSerializer: (params: Record<string, any>) =>
-		queryString.stringify(params, {
-			arrayFormat: "comma",
-			skipEmptyString: true,
-			skipNull: true,
-		}),
+	paramsSerializer: serializeParams,
 };
 const instance = axios.create(instanceConfig);
-
-
-const logDevelopmentError = (message: string, detail?: unknown) => {
-	if (process.env.NODE_ENV !== "production") {
-		console.warn(message, detail);
-	}
-};
-
-const logout = () => {
-	deleteCookie(storageKeys.accessToken);
-};
-
-const redirect = (path: string) => {
-	if (typeof window !== "undefined") {
-		window.location.assign(path);
-	}
-};
 
 instance.interceptors.request.use(
 	async (config: InternalAxiosRequestConfig) => {
@@ -92,4 +88,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-

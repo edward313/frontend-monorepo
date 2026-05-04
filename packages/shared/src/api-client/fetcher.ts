@@ -1,24 +1,14 @@
-import { HTTP_STATUS, storageKeys } from "@repo/shared";
+import instance from "@repo/shared/api-client/instance";
+import { HTTP_STATUS } from "@repo/shared/constants";
+import {
+	logDevelopmentError,
+	logout,
+	redirect,
+} from "@repo/shared/utils/helper";
 import { generatePath } from "@repo/shared/utils/path";
-import { deleteCookie, getCookie } from "cookies-next/client";
-import instance from "./instance";
 
 const FORBIDDEN_PATH = "/forbidden";
-const logDevelopmentError = (message: string, detail?: unknown) => {
-	if (process.env.NODE_ENV !== "production") {
-		console.warn(message, detail);
-	}
-};
 
-const logout = () => {
-	deleteCookie(storageKeys.accessToken);
-};
-
-const redirect = (path: string) => {
-	if (typeof window !== "undefined") {
-		window.location.assign(path);
-	}
-};
 export const fetcher = async (
 	{
 		method,

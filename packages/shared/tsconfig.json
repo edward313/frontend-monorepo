@@ -2,7 +2,12 @@
 	"extends": "@repo/typescript-config/base.json",
 	"compilerOptions": {
 		"lib": ["ES2017", "DOM"],
-		"rootDir": "./src"
+		"rootDir": "./src",
+		"baseUrl": ".",
+		"paths": {
+			"@repo/shared": ["./src/index.ts"],
+			"@repo/shared/*": ["./src/*"]
+		}
 	},
 	"include": ["src"],
 	"exclude": ["node_modules"]

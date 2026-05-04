@@ -1,8 +1,3 @@
-import queryString from "query-string";
-
-type QueryRecord = Record<string, string | number | boolean | null | undefined>;
-type ParamsRecord = Record<string, string | number | null | undefined>;
-
 export const removeTrailingSlash = (val?: string | null) =>
 	val?.endsWith("/") ? val?.substring(0, val.length - 1) : val;
 
