@@ -28,3 +28,14 @@ export const matchPath = (pattern = "", pathname = ""): boolean => {
 
 export const doesPathInPaths = (currentPath: string, paths: string[]) =>
 	paths.some((path) => matchPath(path, currentPath));
+
+export const generatePath = (
+	url = "",
+	pathParams?: Record<string, string | number>,
+) => {
+	if (!pathParams) return url;
+	return Object.entries(pathParams).reduce(
+		(acc, [key, value]) => acc.replace(`:${key}`, String(value)),
+		url,
+	);
+};

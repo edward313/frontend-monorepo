@@ -1,4 +1,6 @@
 "use client";
+import { storageKeys } from "@repo/shared";
+import { generatePath } from "@repo/shared/utils/path";
 import axios, {
 	type AxiosResponse,
 	type InternalAxiosRequestConfig,
@@ -18,18 +20,7 @@ const instanceConfig = {
 		}),
 };
 const instance = axios.create(instanceConfig);
-const FORBIDDEN_PATH = "/forbidden";
 
-const generatePath = (
-	url = "",
-	pathParams?: Record<string, string | number>,
-) => {
-	if (!pathParams) return url;
-	return Object.entries(pathParams).reduce(
-		(acc, [key, value]) => acc.replace(`:${key}`, String(value)),
-		url,
-	);
-};
 
 const logDevelopmentError = (message: string, detail?: unknown) => {
 	if (process.env.NODE_ENV !== "production") {
@@ -38,7 +29,7 @@ const logDevelopmentError = (message: string, detail?: unknown) => {
 };
 
 const logout = () => {
-	deleteCookie("access_token");
+	deleteCookie(storageKeys.accessToken);
 };
 
 const redirect = (path: string) => {
@@ -53,7 +44,7 @@ instance.interceptors.request.use(
 			return config;
 		}
 
-		const access_token = getCookie("access_token");
+		const access_token = getCookie(storageKeys.accessToken);
 		if (access_token) {
 			config.headers.Authorization = `Bearer ${access_token}`;
 		}
@@ -102,45 +93,3 @@ instance.interceptors.response.use(
 
 export default instance;
 
-export const fetcher = async (
-	{
-		method,
-		url,
-		headers,
-	}: { method?: string; url?: string; headers?: any } = {},
-	{
-		data,
-		params,
-		pathParams,
-		signal,
-		...rest
-	}: {
-		data?: any;
-		params?: any;
-		pathParams?: Record<string, string | number>;
-		signal?: AbortSignal;
-		[key: string]: any;
-	} = {},
-) => {
-	try {
-		return await instance.request({
-			method,
-			url: generatePath(url, pathParams),
-			headers,
-			data,
-			params,
-			signal,
-			...rest,
-		});
-	} catch (error: any) {
-		if (error?.response?.status === 401) {
-			logDevelopmentError("fetcher 401 logout", error.config?.url);
-			logout();
-		} else if (error?.response?.status === 403) {
-			logDevelopmentError("fetcher 403 redirect forbidden", error.config?.url);
-			redirect(FORBIDDEN_PATH);
-		}
-
-		throw error;
-	}
-};
