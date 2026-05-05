@@ -4,7 +4,7 @@ import { getBasicAuthFromEnv } from "@repo/shared/utils/helper";
 const apiConfig = {
 	account: {
 		token: {
-			url: "/token",
+			url: "api/token",
 			method: METHOD.POST,
 			headers: {
 				"Content-Type": HEADERS.JSON,
@@ -19,6 +19,11 @@ const apiConfig = {
 		refreshToken: {
 			url: "/auth/refresh-token",
 			method: METHOD.POST,
+			headers: { "Content-Type": HEADERS.JSON },
+		},
+		list: {
+			url: "/v1/account/list",
+			method: METHOD.GET,
 			headers: { "Content-Type": HEADERS.JSON },
 		},
 	},

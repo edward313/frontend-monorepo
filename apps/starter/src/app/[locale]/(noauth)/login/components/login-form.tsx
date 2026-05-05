@@ -1,6 +1,6 @@
 "use client";
 
-import { storageKeys } from "@repo/shared";
+import { storageKeys, type LoginFormValues } from "@repo/shared";
 import EmptyGallerySvg from "@repo/ui/assets/empty-gallery.svg";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@ui/components/button";
@@ -12,15 +12,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import PATHS from "@/constants/paths";
-import type { LoginFormType } from "@/types/auth";
 
 const LoginForm = () => {
 	const router = useRouter();
-	const form = useForm();
+	const form = useForm<LoginFormValues>();
 	const { control, handleSubmit } = form;
 
 	const loginMutation = useMutation({
-		mutationFn: (values: LoginFormType) =>
+		mutationFn: (values: LoginFormValues) =>
 			login({ data: { ...values, grant_type: "password" } }),
 		onSuccess: (data: { access_token?: string; refresh_token?: string }) => {
 			data?.access_token &&
@@ -35,7 +34,7 @@ const LoginForm = () => {
 		},
 	});
 
-	const onSubmit = (values: any) => {
+	const onSubmit = (values: LoginFormValues) => {
 		loginMutation.mutate(values);
 	};
 	return (

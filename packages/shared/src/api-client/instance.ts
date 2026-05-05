@@ -7,7 +7,7 @@ import axios, {
 } from "axios";
 import { getCookie } from "cookies-next/client";
 
-const prefixURL = "api";
+const prefixURL = "";
 
 const serializeParams = (params: Record<string, unknown>) => {
 	const searchParams = new URLSearchParams();
@@ -64,12 +64,7 @@ instance.interceptors.response.use(
 			},
 		);
 
-		return {
-			data: {
-				status: response.status,
-				...response.data,
-			},
-		};
+		return response.data;
 	},
 	async (error) => {
 		console.log(

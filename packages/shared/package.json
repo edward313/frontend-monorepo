@@ -10,6 +10,10 @@
 			"types": "./src/constants/index.ts",
 			"default": "./src/constants/index.ts"
 		},
+		"./types": {
+			"types": "./src/types/index.ts",
+			"default": "./src/types/index.ts"
+		},
 		"./api-client/*": {
 			"types": "./src/api-client/*.ts",
 			"default": "./src/api-client/*"
