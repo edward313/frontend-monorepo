@@ -1,5 +1,6 @@
 "use client";
 
+import { storageKeys } from "@repo/shared";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import {
 	DropdownMenu,
@@ -13,7 +14,6 @@ import {
 import { deleteCookie } from "cookies-next/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { storageKeys } from "@/constants/app";
 
 const UserInformation = () => {
 	const [open, setOpen] = useState(false);

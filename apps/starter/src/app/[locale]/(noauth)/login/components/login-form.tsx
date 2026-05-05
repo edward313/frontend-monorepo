@@ -1,5 +1,6 @@
 "use client";
 
+import { storageKeys } from "@repo/shared";
 import EmptyGallerySvg from "@repo/ui/assets/empty-gallery.svg";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@ui/components/button";
@@ -10,7 +11,7 @@ import { setCookie } from "cookies-next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { storageKeys } from "@/constants/app";
+import PATHS from "@/constants/paths";
 import type { LoginFormType } from "@/types/auth";
 
 const LoginForm = () => {
@@ -27,7 +28,7 @@ const LoginForm = () => {
 			data?.refresh_token &&
 				setCookie(storageKeys.refreshToken, data.refresh_token);
 			toast.success("Đăng nhập thành công");
-			router.replace("/");
+			router.replace(PATHS.admin);
 		},
 		onError: (error) => {
 			toast.error(error.message || "Đăng nhập thất bại");

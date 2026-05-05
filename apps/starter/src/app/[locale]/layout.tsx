@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from "@repo/i18n";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "../globals.css";
 
 import { Toaster } from "@ui/components/sonner";
@@ -23,18 +24,20 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<body className="antialiased">
-				<NextIntlClientProvider>
-					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-						<ErrorBoundaryProvider>
-							<TanstackQueryProvider>
-								{children}
-								<Toaster richColors closeButton position="top-right" />
-							</TanstackQueryProvider>
-						</ErrorBoundaryProvider>
-					</ThemeProvider>
-				</NextIntlClientProvider>
-			</body>
-		</html>
+				<body className="antialiased">
+					<NextIntlClientProvider>
+						<NuqsAdapter>
+							<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+								<ErrorBoundaryProvider>
+									<TanstackQueryProvider>
+										{children}
+										<Toaster richColors closeButton position="top-right" />
+									</TanstackQueryProvider>
+								</ErrorBoundaryProvider>
+							</ThemeProvider>
+						</NuqsAdapter>
+					</NextIntlClientProvider>
+				</body>
+			</html>
 	);
 }

@@ -30,6 +30,10 @@
 			"types": "./src/hooks/*.ts",
 			"default": "./src/hooks/*"
 		},
+		"./lib/*": {
+			"types": "./src/lib/*.ts",
+			"default": "./src/lib/*"
+		},
 		"./providers/*": {
 			"types": "./src/providers/*.tsx",
 			"default": "./src/providers/*"

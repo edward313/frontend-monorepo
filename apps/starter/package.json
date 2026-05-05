@@ -18,6 +18,7 @@
 		"@tanstack/react-query": "^5.85.0",
 		"cookies-next": "^6.1.0",
 		"next": "16.1.5",
+		"nuqs": "^2.8.9",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-hook-form": "7.62.0"

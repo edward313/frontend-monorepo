@@ -1,3 +1,5 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 export const removeTrailingSlash = (val?: string | null) =>
 	val?.endsWith("/") ? val?.substring(0, val.length - 1) : val;
 
@@ -33,4 +35,13 @@ export const generatePath = (
 		(acc, [key, value]) => acc.replace(`:${key}`, String(value)),
 		url,
 	);
+};
+export const handleRouterBack = (router: AppRouterInstance, href?: string) => {
+	if (typeof window !== "undefined" && window.history.length > 1) {
+		return router.back();
+	}
+
+	if (href) {
+		return router.push(href);
+	}
 };
