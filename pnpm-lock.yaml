@@ -144,6 +144,9 @@ importers:
 
   packages/shared:
     dependencies:
+      '@repo/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       axios:
         specifier: ^1.15.0
         version: 1.15.0
@@ -157,6 +160,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      next:
+        specifier: 16.1.5
+        version: 16.1.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -3955,7 +3961,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 30.3.0
       '@jest/types': 30.3.0
-      '@types/node': 20.19.39
+      '@types/node': 22.19.17
       jest-mock: 30.3.0
 
   '@jest/expect-utils@30.3.0':
@@ -3973,7 +3979,7 @@ snapshots:
     dependencies:
       '@jest/types': 30.3.0
       '@sinonjs/fake-timers': 15.3.0
-      '@types/node': 20.19.39
+      '@types/node': 22.19.17
       jest-message-util: 30.3.0
       jest-mock: 30.3.0
       jest-util: 30.3.0
@@ -5897,7 +5903,7 @@ snapshots:
   jest-mock@30.3.0:
     dependencies:
       '@jest/types': 30.3.0
-      '@types/node': 20.19.39
+      '@types/node': 22.19.17
       jest-util: 30.3.0
 
   jest-pnp-resolver@1.2.3(jest-resolve@30.3.0):

@@ -1,8 +1,6 @@
 const PATHS = {
 	home: "/",
 	login: "/login",
-	homeLocale: "/[locale]",
-	loginLocale: "/[locale]/login",
 };
 
 export const publicPaths = [];

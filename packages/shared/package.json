@@ -23,12 +23,17 @@
 		"lint": "biome check --write ."
 	},
 	"dependencies": {
+		"@repo/i18n": "workspace:*",
 		"axios": "^1.15.0",
 		"cookies-next": "^6.1.1",
 		"query-string": "^9.0.1"
 	},
 	"devDependencies": {
 		"@repo/typescript-config": "workspace:*",
+		"next": "16.1.5",
 		"typescript": "5.5.4"
+	},
+	"peerDependencies": {
+		"next": "16.1.5"
 	}
 }

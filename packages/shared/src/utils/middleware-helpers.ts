@@ -1,9 +1,8 @@
-import { getPathname } from "@repo/i18n/navigation";
 import { routing } from "@repo/i18n/routing";
+import { storageKeys } from "@repo/shared/constants";
+
 import { deleteCookie } from "cookies-next";
 import { type NextRequest, NextResponse } from "next/server";
-
-import { storageKeys } from "@/constants/app";
 
 type MiddlewareArgs = {
 	req: NextRequest;
@@ -15,8 +14,6 @@ type RedirectArgs = MiddlewareArgs & {
 	path?: string;
 };
 
-type Locale = (typeof routing.locales)[number];
-
 const deleteAllAuthCookies = ({ req, res }: MiddlewareArgs) => {
 	deleteCookie(storageKeys.accessToken, { req, res });
 	deleteCookie(storageKeys.refreshToken, { req, res });
@@ -27,8 +24,7 @@ const getSsoUrl = (req: NextRequest) => {
 	const pathLocale = routing.locales.find(
 		(locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
 	);
-	const locale =
-		pathLocale ?? routing.defaultLocale;
+	const locale = pathLocale ?? routing.defaultLocale;
 	const loginPath =
 		locale !== routing.defaultLocale ? `/${locale}/login` : "/login";
 	return new URL(loginPath, req.url);
